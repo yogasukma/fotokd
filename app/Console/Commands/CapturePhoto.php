@@ -71,6 +71,8 @@ class CapturePhoto extends Command
                         'description' => $imageDescription,
                         'author' => $imageAuthor
                     ]);
+
+                    sleep(60); // give chance to breath :)
                 });
             }
         });
