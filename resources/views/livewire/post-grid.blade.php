@@ -1,5 +1,5 @@
 <div class="post-grid">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid lg:grid-cols-3 lg:gap-4">
         @foreach ($posts as $post)
         <figure wire:click='open({{ $post->id }})'>
             <img src="{{ $post->featuredMedia->permalink }}">
