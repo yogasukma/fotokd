@@ -51,5 +51,15 @@
        });
     });
     </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ env("GOOGLE_ANALYTICS_TAG") }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ env("GOOGLE_ANALYTICS_TAG") }}');
+    </script>
 </body>
 </html>
