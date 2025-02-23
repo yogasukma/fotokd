@@ -12,12 +12,12 @@ class PostGrid extends Component
         $posts = Post::with('featuredMedia')->orderBy('id', 'desc')->paginate(15);
 
         return view('livewire.post-grid', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
-   }
+    }
 
-   public function open($postId)
-   {
+    public function open($postId)
+    {
         $this->dispatch('show-popup', $postId);
-   }
+    }
 }

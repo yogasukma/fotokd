@@ -30,38 +30,38 @@ class CapturePhoto extends Command
      */
     public function handle()
     {
-        $mainPage = $this->scrap("https://katadata.co.id/foto");
+        $mainPage = $this->scrap('https://katadata.co.id/foto');
 
-        $mainPage->filter(".content-text")->each(function(Crawler $node) {
+        $mainPage->filter('.content-text')->each(function (Crawler $node) {
             $url = $node->filter('a')->attr('href');
             $title = $node->filter('.content-title')->text();
-            $title = str_replace("[Foto] ", "", $title);
+            $title = str_replace('[Foto] ', '', $title);
 
-            $words = explode("/", $url);
+            $words = explode('/', $url);
             $id = $words[4];
 
             $this->info($title);
 
-            $findPost = Post::where("guid", $id)->first();
+            $findPost = Post::where('guid', $id)->first();
 
-            if (!$findPost) {
+            if (! $findPost) {
                 $post = Post::create([
                     'guid' => $id,
                     'title' => $title,
-                    'url' => $url
+                    'url' => $url,
                 ]);
 
                 $postPage = $this->scrap($url);
 
-                $postPage->filter(".gallery-item")->each(function(Crawler $childNode) use($post) {
+                $postPage->filter('.gallery-item')->each(function (Crawler $childNode) use ($post) {
                     $imageUrl = $childNode->filter('img')->attr('src');
                     $imageDescription = $childNode->filter('img')->attr('alt');
 
-                    $words = explode("/", $imageUrl);
+                    $words = explode('/', $imageUrl);
                     $imageName = $words[8];
 
                     $imageFile = $this->getContentUrl($imageUrl);
-                    Storage::put(sprintf("images/%s/%s", $post->guid, $imageName), $imageFile);
+                    Storage::put(sprintf('images/%s/%s', $post->guid, $imageName), $imageFile);
 
                     $imageAuthor = $childNode->filter('.img-credit')->text();
 
@@ -69,7 +69,7 @@ class CapturePhoto extends Command
                         'post_guid' => $post->guid,
                         'filename' => $imageName,
                         'description' => $imageDescription,
-                        'author' => $imageAuthor
+                        'author' => $imageAuthor,
                     ]);
 
                     sleep(60); // give chance to breath :)
@@ -78,7 +78,7 @@ class CapturePhoto extends Command
         });
     }
 
-    private function scrap($url) 
+    private function scrap($url)
     {
         $page = $this->getContentUrl($url);
 
@@ -89,7 +89,7 @@ class CapturePhoto extends Command
 
     private function getContentUrl($url)
     {
-        $client = new Client();
+        $client = new Client;
 
         $request = $client->request('GET', $url);
 

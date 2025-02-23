@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class PostPopup extends Component
 {
-    public $showPopup = false, $postId = null;
+    public $showPopup = false;
+
+    public $postId = null;
 
     public function render()
     {
@@ -17,17 +19,17 @@ class PostPopup extends Component
             : Post::with('media')->find($this->postId);
 
         return view('livewire.post-popup', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
-    public function closePopup() 
+    public function closePopup()
     {
         $this->showPopup = false;
     }
 
     #[On('show-popup')]
-    public function showPopup($postId) 
+    public function showPopup($postId)
     {
         $this->postId = $postId;
         $this->showPopup = true;
