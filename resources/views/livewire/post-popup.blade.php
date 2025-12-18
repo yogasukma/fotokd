@@ -10,7 +10,7 @@
                 <span class="text-sm">Foto: {{ $post->media[0]->author }}</span>
             </div>
             <div>
-                <a href="{{ $post->url . "?utm_source=fotokd.web.id" }}" target="_blank" class="bg-green-600 p-3 rounded text-white text-sm">Buka di katadata.id</a>
+                <a href="{{ $post->url . "?utm_source=fotokd.yogasukma.com" }}" target="_blank" class="bg-green-600 p-3 rounded text-white text-sm">Buka di katadata.id</a>
                 <a href="#" wire:click='closePopup' class="border border-red-600 p-3 rounded text-red-600 text-sm">Tutup</a>
             </div>
         </header>
